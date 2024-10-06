@@ -31,7 +31,8 @@
                                             class="btn btn-sm btn-info" title="Vedi Dettagli">
                                             <i class="bi bi-eye"></i>
                                         </a>
-                                        <a href="" class="btn btn-sm btn-warning" title="Modifica">
+                                        <a href="{{ route('admin.projects.edit', ['project' => $project->id]) }}"
+                                            class="btn btn-sm btn-warning" title="Modifica">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
                                         <form action="" method="POST" class="d-inline">
