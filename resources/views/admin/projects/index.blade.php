@@ -35,7 +35,8 @@
                                             class="btn btn-sm btn-warning" title="Modifica">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
-                                        <form action="" method="POST" class="d-inline">
+                                        <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST"
+                                            class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger" title="Elimina">
