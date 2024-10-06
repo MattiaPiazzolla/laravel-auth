@@ -26,8 +26,9 @@
                                 <td>{{ $project->name }}</td>
                                 <td>{{ $project->slug }}</td>
                                 <td class="text-center">
-                                    <div class="btn-group">
-                                        <a href="" class="btn btn-sm btn-info" title="Vedi Dettagli">
+                                    <div class="d-flex justify-content-between">
+                                        <a href="{{ route('admin.projects.show', ['project' => $project->id]) }}"
+                                            class="btn btn-sm btn-info" title="Vedi Dettagli">
                                             <i class="bi bi-eye"></i>
                                         </a>
                                         <a href="" class="btn btn-sm btn-warning" title="Modifica">
