@@ -8,11 +8,17 @@
             </div>
         </div>
         <div class="col-12">
-            <form action="{{ route('admin.projects.store') }}" method="POST">
+            <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Nome Progetto</label>
                     <input type="text" class="form-control" id="name" name="name"
+                        placeholder="Inserisci il nome del progetto" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="project_image" class="form-label">Immagine Progetto</label>
+                    <input type="file" class="form-control" id="project_image" name="project_image"
                         placeholder="Inserisci il nome del progetto" required>
                 </div>
 
