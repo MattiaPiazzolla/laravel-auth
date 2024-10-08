@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->string('project_image')->nullable()->after('summary');
+            $table->string('project_image')->nullable()->after('summary')->default('https://placehold.co/600x400?text=MISSING+IMG');
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('projects', function (Blueprint $table) {
-            //
+            $table->dropColumn('project_image');
         });
     }
 };
