@@ -18,7 +18,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        return view ('admin.projects.index', compact('projects'));
+        return view('admin.projects.index', compact('projects'));
     }
 
     /**
@@ -41,20 +41,34 @@ class ProjectController extends Controller
     {
         // Tutti i dati validati sono ora accessibili tramite $request->validated()
         $form_data = $request->validated();
-    
+
         // Aggiungi lo slug generato
         $form_data['slug'] = Project::generateSlug($form_data['name']);
-    
+
         // Gestisci il caricamento dell'immagine, se presente
         if ($request->hasFile('project_image')) {
             $path = Storage::disk('public')->put('project_image', $form_data['project_image']);
             $form_data['project_image'] = $path;
         }
-    
+        else {
+            $form_data['project-image'] = 'https://placehold.co/600x400?text=MISSING+IMG';
+        }
+
         // Crea il progetto
         $project = Project::create($form_data);
-    
+
         return redirect()->route('admin.projects.index')->with('success', 'Progetto creato con successo.');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Project  $project
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Project $project)
+    {
+        return view('admin.projects.show', compact('project'));
     }
 
     /**
@@ -79,7 +93,7 @@ class ProjectController extends Controller
     {
         $project->name = $request->name; 
         $project->summary = $request->summary;
-        
+
         $project->save();
 
         return redirect()->route('admin.projects.index')->with('success', 'Progetto aggiornato con successo.');
