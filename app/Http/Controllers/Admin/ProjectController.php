@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Requests\StoreProjectRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -51,7 +53,7 @@ class ProjectController extends Controller
             $form_data['project_image'] = $path;
         }
         else {
-            $form_data['project-image'] = 'https://placehold.co/600x400?text=MISSING+IMG';
+            $form_data['project_image'] = 'https://placehold.co/600x400?text=MISSING+IMG';
         }
 
         // Crea il progetto
@@ -89,15 +91,29 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
-    {
-        $project->name = $request->name; 
-        $project->summary = $request->summary;
+    public function update(UpdateProjectRequest $request, Project $project)
+{
 
-        $project->save();
+    $form_data = $request->validated();
 
-        return redirect()->route('admin.projects.index')->with('success', 'Progetto aggiornato con successo.');
+
+    if ($request->hasFile('project_image')) {
+
+        if (Str::startsWith($project->project_image, 'https') === false) {
+            Storage::disk('public')->delete($project->project_image);
+        }
+
+
+        $path = Storage::disk('public')->put('project_image', $form_data['project_image']);
+        $form_data['project_image'] = $path;
     }
+
+    $form_data['slug'] = Project::generateSlug($form_data['name']);
+
+    $project->update($form_data);
+
+    return redirect()->route('admin.projects.index');
+}
 
     /**
      * Remove the specified resource from storage.
@@ -110,5 +126,10 @@ class ProjectController extends Controller
         $project->delete();
 
         return redirect()->route('admin.projects.index');
+    }
+    
+    public function __construct()
+    {
+        $this->middleware('auth'); 
     }
 }

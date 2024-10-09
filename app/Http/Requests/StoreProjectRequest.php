@@ -13,7 +13,7 @@ class StoreProjectRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;  // Imposta su 'true' per permettere l'uso della request
+        return true;  
     }
 
     /**
