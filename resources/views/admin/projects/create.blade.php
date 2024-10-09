@@ -8,6 +8,17 @@
             </div>
         </div>
         <div class="col-12">
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
@@ -19,7 +30,7 @@
                 <div class="mb-3">
                     <label for="project_image" class="form-label">Immagine Progetto</label>
                     <input type="file" class="form-control" id="project_image" name="project_image"
-                        placeholder="Inserisci il nome del progetto" required>
+                        placeholder="Inserisci il nome del progetto">
                 </div>
 
                 <div class="mb-3">

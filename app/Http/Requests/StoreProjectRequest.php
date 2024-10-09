@@ -26,7 +26,7 @@ class StoreProjectRequest extends FormRequest
         return [
             'name' => 'required|string|max:100',
             'summary' => 'nullable|string',
-            'project_image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Valida l'immagine
+            'project_image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
         ];
     }
 

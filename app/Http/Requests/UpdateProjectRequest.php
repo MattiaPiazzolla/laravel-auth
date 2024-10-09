@@ -29,4 +29,15 @@ class UpdateProjectRequest extends FormRequest
             'project_image' => 'nullable|image|max:2048',  
         ];
     }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Il nome del progetto è obbligatorio.',
+            'name.string' => 'Il nome del progetto deve essere una stringa.',
+            'name.max' => 'Il nome del progetto non può superare i 100 caratteri.',
+            'summary.string' => 'Il sommario deve essere una stringa.',
+            'project_image.image' => "Il file caricato deve essere un'immagine.",
+            'project_image.max' => "L'immagine non può superare i 2MB.",
+        ];
+    }
 }
